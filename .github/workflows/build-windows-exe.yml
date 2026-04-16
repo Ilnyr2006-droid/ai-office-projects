@@ -4,8 +4,9 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "ai_office_app.py"
-      - "build_exe.bat"
+      - "ai-office/ai_office_app.py"
+      - "ai-office/ai_office_desktop.py"
+      - "ai-office/build_exe.bat"
       - ".github/workflows/build-windows-exe.yml"
 
 jobs:
@@ -21,13 +22,13 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install PyInstaller
+      - name: Install build dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pyinstaller
-          python -m pip install pywebview
+          python -m pip install pyinstaller pywebview
 
       - name: Build EXE
+        working-directory: ai-office
         run: |
           pyinstaller --noconfirm --onefile --windowed --name AIOffice ai_office_desktop.py
 
@@ -35,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AIOffice-windows-exe
-          path: dist/AIOffice.exe
+          path: ai-office/dist/AIOffice.exe
