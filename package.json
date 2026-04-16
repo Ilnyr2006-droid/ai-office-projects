@@ -1,0 +1,27 @@
+{
+  "name": "ai-seller-leather",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "import:catalog": "node scripts/import-tilda-catalog.js",
+    "import:catalog:only": "SKIP_EMBEDDINGS=1 node scripts/import-tilda-catalog.js",
+    "embed:catalog": "node scripts/build-catalog-embeddings.js",
+    "refresh:catalog": "node scripts/import-tilda-catalog.js",
+    "sync:prices": "node scripts/sync-site-prices.js",
+    "start": "node --experimental-strip-types src/server.ts",
+    "dev": "node --watch --experimental-strip-types src/server.ts",
+    "test": "node --experimental-strip-types --test",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm test"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
